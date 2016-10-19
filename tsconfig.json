@@ -8,8 +8,6 @@
         "adapters/Serial.ts",
         "Printer.ts",
         "Commands.ts",
-        "index.ts",
-        "test.ts",
         "types.d.ts"
     ],
     "filesGlob": [
@@ -17,8 +15,13 @@
         "!./node_modules/**/*.ts"
     ],
     "compilerOptions": {
-        "outDir": "bin/",
+        "outDir": "js/",
         "target": "es6",
-        "module": "commonjs" 
+        "module": "commonjs",
+        "declaration": true,
+        "noImplicitAny": false,
+        "removeComments": true,
+        "noLib": false,
+        "preserveConstEnums": true
     }
 }

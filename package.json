@@ -32,7 +32,7 @@
         "@types/node": "^6.0.45",
         "@types/serialport": "^4.0.6"
     },
-        "dependencies": {
+    "dependencies": {
         "mutable-buffer": "^2.0.3",
         "serialport": "^4.0.3"
     },
