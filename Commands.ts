@@ -45,12 +45,22 @@ export enum Color {
     Color2
 }
 
-export default {
-    Color,
-    Position,
-    Barcode,
-    Font,
-    DrawerPin,
-    Justification,
-    Underline,
-};
+export enum CodeTable {
+    PC437 = 0,
+    Katakana,
+    PC850,
+    PC860,
+    PC863,
+    PC865,
+    WPC1252 = 16,
+    PC866,
+    PC852,
+    PC858,
+    Thai42,
+    Thai11,
+    Thai13,
+    Thai14,
+    Thai16,
+    Thai17,
+    Thai18
+}
