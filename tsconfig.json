@@ -1,0 +1,24 @@
+{
+    "typeRoots": ["node_modules/@types"],
+    "types": ["node", "serialport"],
+    "files": [
+        "Adapter.ts",
+        "Adapters.ts",
+        "Network.ts",
+        "Serial.ts",
+        "Printer.ts",
+        "Commands.ts",
+        "index.ts",
+        "test.ts",
+        "types.d.ts"
+    ],
+    "filesGlob": [
+        "./**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "compilerOptions": {
+        "outDir": "bin/",
+        "target": "es6",
+        "module": "commonjs" 
+    }
+}

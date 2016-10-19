@@ -1,0 +1,10 @@
+{
+    "extends": "tslint:latest",
+    "rules": {
+        "no-constructor-vars": true,
+        "semicolon": [
+            true,
+            "always"   
+        ]
+    }
+}
