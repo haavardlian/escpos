@@ -35,3 +35,9 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Visual Studio Code
+.vscode/
+
+# compiled typescript
+bin/
