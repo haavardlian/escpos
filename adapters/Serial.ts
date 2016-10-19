@@ -1,4 +1,4 @@
-﻿import Adapter from "./Adapter";
+﻿import Adapter from "../Adapter";
 import * as SerialPort from "serialport";
 
 interface IOpenOptions {

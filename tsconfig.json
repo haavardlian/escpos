@@ -4,8 +4,8 @@
     "files": [
         "Adapter.ts",
         "Adapters.ts",
-        "Network.ts",
-        "Serial.ts",
+        "adapters/Network.ts",
+        "adapters/Serial.ts",
         "Printer.ts",
         "Commands.ts",
         "index.ts",

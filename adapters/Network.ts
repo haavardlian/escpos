@@ -1,4 +1,4 @@
-﻿import Adapter from "./Adapter";
+﻿import Adapter from "../Adapter";
 import { Socket } from "net";
 
 interface IEndpoint {

@@ -1,5 +1,5 @@
-import Network from "./Network";
-import Serial from "./Serial";
+import Network from "./adapters/Network";
+import Serial from "./adapters/Serial";
 
 export {
     Network,
