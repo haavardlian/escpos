@@ -1,5 +1,5 @@
 ﻿import Adapter from "./Adapter";
-import { Barcode, CodeTable, Color, DrawerPin, Font, Justification, Position, Underline } from "./Commands";
+import { Barcode, CodeTable, Color, DrawerPin, Font, Justification, Position, TextMode, Underline } from "./Commands";
 import { MutableBuffer } from "mutable-buffer";
 
 class Printer {
@@ -99,6 +99,13 @@ class Printer {
         this.write(0x1B);
         this.write("t");
         this.write(table);
+        return this;
+    }
+
+    public setTextMode(mode: TextMode): Printer {
+        this.write(0x1B);
+        this.write("!");
+        this.write(mode);
         return this;
     }
 

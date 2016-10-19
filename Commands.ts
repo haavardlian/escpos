@@ -45,6 +45,13 @@ export enum Color {
     Color2
 }
 
+export enum TextMode {
+    Normal = 0,
+    DualHeight = 0x10,
+    DualWidth = 0x20,
+    DualWidthAndHeight = 0x30
+}
+
 export enum CodeTable {
     PC437 = 0,
     Katakana,
