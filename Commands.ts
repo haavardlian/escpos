@@ -30,7 +30,12 @@ export enum Barcode {
     ITF,
     CODABAR,
     CODE93,
-    CODE128
+    CODE128,
+    UCC,
+    RSS14,
+    RSS14Truncated,
+    RSSLimited,
+    RSSExpanded
 }
 
 export enum Position {
@@ -50,6 +55,20 @@ export enum TextMode {
     DualHeight = 0x10,
     DualWidth = 0x20,
     DualWidthAndHeight = 0x30
+}
+
+export enum RasterMode {
+    Normal = 0,
+    DualWidth,
+    DualHeight,
+    DualWidthAndHeight
+}
+
+export enum Density {
+    Single8Dot = 0x00,
+    Double8Dot = 0x01,
+    Single24Dot = 0x20,
+    Double24Dot = 0x21
 }
 
 export enum CodeTable {

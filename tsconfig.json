@@ -8,6 +8,7 @@
         "adapters/Serial.ts",
         "Printer.ts",
         "Commands.ts",
+        "Image.ts",
         "types.d.ts"
     ],
     "filesGlob": [

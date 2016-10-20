@@ -1,7 +1,7 @@
 ﻿import Adapter from "../Adapter";
 import { Socket } from "net";
 
-interface IEndpoint {
+export interface IEndpoint {
     address: string;
     port: number;
 }
@@ -10,9 +10,12 @@ export default class Network extends Adapter {
     private retrying: boolean;
     private options: IEndpoint;
     private device: Socket;
-    constructor(address: string, port: number) {
+    constructor(endpoint: IEndpoint) {
         super();
         this.device = new Socket();
+        this.retrying = false;
+        this.options = endpoint;
+
         this.device.on("close", () => {
             if (this.retrying) {
                 setTimeout(() => {
@@ -24,12 +27,6 @@ export default class Network extends Adapter {
         this.device.on("error", (error: any) => {
             console.error(error.code);
         });
-
-        this.retrying = false;
-        this.options = {
-            address,
-            port,
-        };
     }
 
     public open(): Promise<undefined> {
@@ -54,7 +51,3 @@ export default class Network extends Adapter {
         this.device.destroy();
     }
 }
-
-export {
-    IEndpoint
-};

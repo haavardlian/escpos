@@ -1,43 +1,45 @@
 {
-    "version": "0.0.0",
-    "name": "escpos",
-    "bugs": {
-        "url": "https://github.com/haavardlian/escpos/issues"
-    },
-    "keywords": [
-        "esc/pos",
-        "escpos",
-        "typescript"
-    ],
-    "engines": {
-        "node": ">=6.0.0",
-        "typescript": ">=2.0.0"
-    },
-    "description": "Library for printing to ESC/POS compatible printers",
-    "homepage": "https://github.com/haavardlian/escpos",
-    "main": "bin/index.js",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/haavardlian/escpos.git"
-    },
-    "author": {
-        "name": "Håvard Lian",
-        "email": "haavard@64bit.no",
-        "url": "https://github.com/haavardlian"
-    },
-    "contributors": [
-    ],
-    "devDependencies": {
-        "@types/node": "^6.0.45",
-        "@types/serialport": "^4.0.6"
-    },
-    "dependencies": {
-        "mutable-buffer": "^2.0.3",
-        "serialport": "^4.0.3"
-    },
-    "scripts": {
-        "test": "node bin/test.js",
-        "compile": "tsc"
-    }
+  "version": "0.0.0",
+  "name": "escpos",
+  "bugs": {
+    "url": "https://github.com/haavardlian/escpos/issues"
+  },
+  "keywords": [
+    "esc/pos",
+    "escpos",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=6.0.0",
+    "typescript": ">=2.0.0"
+  },
+  "description": "Library for printing to ESC/POS compatible printers",
+  "homepage": "https://github.com/haavardlian/escpos",
+  "main": "bin/index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haavardlian/escpos.git"
+  },
+  "author": {
+    "name": "Håvard Lian",
+    "email": "haavard@64bit.no",
+    "url": "https://github.com/haavardlian"
+  },
+  "contributors": [],
+  "devDependencies": {
+    "@types/node": "^6.0.45",
+    "@types/serialport": "^4.0.6",
+    "@types/iconv-lite": "^0.0.1"
+  },
+  "dependencies": {
+    "get-pixels": "^3.3.0",
+    "iconv-lite": "^0.4.13",
+    "mutable-buffer": "^2.0.3",
+    "serialport": "^4.0.3"
+  },
+  "scripts": {
+    "test": "node bin/test.js",
+    "compile": "tsc"
+  }
 }

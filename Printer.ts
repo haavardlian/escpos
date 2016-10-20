@@ -1,8 +1,11 @@
 ﻿import Adapter from "./Adapter";
-import { Barcode, CodeTable, Color, DrawerPin, Font, Justification, Position, TextMode, Underline } from "./Commands";
+import { Barcode, CodeTable, Color, DrawerPin, Font,
+    Justification, Position, RasterMode, TextMode, Underline } from "./Commands";
+import Image from "./Image";
+import * as iconv from "iconv-lite";
 import { MutableBuffer } from "mutable-buffer";
 
-class Printer {
+export default class Printer {
     private buffer: MutableBuffer;
     private adapter: Adapter;
 
@@ -141,8 +144,29 @@ class Printer {
         return this;
     }
 
-    public writeLine(value: string): Printer {
-        return this.write(value + "\n");
+    public setLineSpacing(spacing?: number) {
+        this.write(0x1B);
+        if (spacing !== undefined) {
+            this.write("3");
+            this.write(spacing);
+        } else {
+            this.write(2);
+        }
+    }
+
+    public raster(image: Image, mode: RasterMode): Printer {
+        let header: Buffer = new Buffer([0x1D, 0x76, 0x30, mode]);
+        let raster = image.toRaster();
+        this.buffer.write(header);
+        this.buffer.writeUInt16LE(raster.width);
+        this.buffer.writeUInt16LE(raster.height);
+        this.buffer.write(raster.data);
+
+        return this;
+    }
+
+    public writeLine(value: string, encoding?: string): Printer {
+        return this.write(value + "\n", encoding);
     }
 
     public close(): Promise<undefined> {
@@ -160,14 +184,19 @@ class Printer {
         });
     }
 
-    private write(value: string | Buffer | number): Printer {
+    public clearBuffer(): Printer {
+        this.buffer.clear();
+        return this;
+    }
+
+    private write(value: string | Buffer | number, encoding?: string): Printer {
         if (typeof value === "number") {
             this.buffer.writeUInt8(value);
+        } else if (typeof value === "string" && encoding !== undefined) {
+            this.buffer.write(iconv.encode(value, encoding));
         } else {
             this.buffer.write(value);
         }
         return this;
     }
 }
-
-export default Printer;
