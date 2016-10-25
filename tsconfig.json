@@ -2,14 +2,15 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["node", "serialport"],
     "files": [
-        "Adapter.ts",
-        "Adapters.ts",
-        "adapters/Network.ts",
-        "adapters/Serial.ts",
-        "Printer.ts",
-        "Commands.ts",
-        "Image.ts",
-        "types.d.ts"
+        "src/Adapter.ts",
+        "src/Adapters.ts",
+        "src/adapters/Network.ts",
+        "src/adapters/Serial.ts",
+        "src/Printer.ts",
+        "src/Commands.ts",
+        "src/Image.ts",
+        "src/types.d.ts",
+        "src/Test.ts"
     ],
     "filesGlob": [
         "./**/*.ts",

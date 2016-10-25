@@ -29,6 +29,7 @@ export default class Printer {
         this.setBold(false);
         this.setUnderline(Underline.NoUnderline);
         this.setJustification(Justification.Left);
+        this.setTextMode(TextMode.Normal);
         this.setFont(Font.A);
         return this;
     }
@@ -150,7 +151,7 @@ export default class Printer {
             this.write("3");
             this.write(spacing);
         } else {
-            this.write(2);
+            this.write("2");
         }
     }
 
