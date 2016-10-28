@@ -28,12 +28,9 @@ export default class Image {
         this.colors = this.pixels.shape[2];
 
         for (let i = 0; i < this.pixels.data.length; i += this.colors) {
-            let value = 0;
-            for (let j = 0; j < this.colors - 1; j++) {
-                if (this.pixels.data[i + j] !== 0) {
-                    value = 1;
-                    break;
-                }
+            let value = 0xFF * (this.colors - 1);
+            for (let j = 0; j < this.colors; j++) {
+                value -= this.pixels.data[i + j];
             }
             if (this.pixels.data[i + this.colors - 1] === 0) {
                 value = 0;

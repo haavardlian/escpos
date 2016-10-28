@@ -1,17 +1,25 @@
 ﻿import Adapter from "./Adapter";
 import { Barcode, CodeTable, Color, DrawerPin, Font,
-    Justification, Position, RasterMode, TextMode, Underline } from "./Commands";
+    Justification, PDF417ErrorCorrectLevel, PDF417Type,
+    Position, QRErrorCorrecLevel, RasterMode, TextMode, Underline } from "./Commands";
 import Image from "./Image";
 import * as iconv from "iconv-lite";
 import { MutableBuffer } from "mutable-buffer";
 
 export default class Printer {
+    public encoding: string = "ascii";
     private buffer: MutableBuffer;
     private adapter: Adapter;
 
-    constructor(adapter: Adapter) {
+    constructor(adapter: Adapter, encoding: string = "ascii") {
         this.adapter = adapter;
         this.buffer = new MutableBuffer();
+        this.encoding = encoding;
+    }
+
+    public setEncoding(encoding: string): Printer {
+        this.encoding = encoding;
+        return this;
     }
 
     public flush(): Promise<undefined> {
@@ -34,21 +42,35 @@ export default class Printer {
         return this;
     }
 
-    public feed(feed: number): Printer {
+    public feed(feed: number = 1): Printer {
         this.write(0x1B);
         this.write("d");
         this.write(feed);
         return this;
     }
 
-    public setBold(bold: boolean): Printer {
+    public reverse(feed: number = 1): Printer {
+        this.write(0x1B);
+        this.write("e");
+        this.write(feed);
+        return this;
+    }
+
+    public setBold(bold: boolean = true): Printer {
         this.write(0x1B);
         this.write("E");
         this.write(bold ? 1 : 0);
         return this;
     }
 
-    public setInverse(inverse: boolean): Printer {
+    public setDoubleStrike(double: boolean = true): Printer {
+        this.write(0x1B);
+        this.write("G");
+        this.write(double ? 0xFF : 0);
+        return this;
+    }
+
+    public setInverse(inverse: boolean = true): Printer {
         this.write(0x1D);
         this.write("B");
         this.write(inverse ? 1 : 0);
@@ -83,7 +105,7 @@ export default class Printer {
         return this;
     }
 
-    public openDrawer(pin: DrawerPin): Printer {
+    public openDrawer(pin: DrawerPin = DrawerPin.Pin2): Printer {
         this.write(0x1B);
         this.write("p");
         this.write(pin);
@@ -114,7 +136,7 @@ export default class Printer {
     }
 
     public barcode(code: string, type: Barcode, height: number,
-                   width: number, font: Font, pos: Position): Printer {
+                   width: 2|3|4|5|6, font: Font, pos: Position): Printer {
         // Set the position of barcode text
         this.write(0x1D);
         this.write("H");
@@ -139,20 +161,97 @@ export default class Printer {
         this.write(0x1D);
         this.write("k");
         this.write(type);
-        this.write(code.length);
         this.write(code);
+        this.write(0);
 
         return this;
     }
 
-    public setLineSpacing(spacing?: number) {
+    public qr(code: string, errorCorrect: QRErrorCorrecLevel, size: 1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16): Printer {
+        this.write(0x1D);
+        this.write("(k");
+        this.buffer.writeUInt16LE(code.length + 3);
+        this.write(new Buffer([49, 80, 48]));
+        this.write(code);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 49, 69]));
+        this.write(errorCorrect);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 49, 67]));
+        this.write(size);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 49, 81, 48]));
+        return this;
+    }
+
+    public pdf417(code: string, type: PDF417Type = PDF417Type.Standard, height: number = 1, width: number = 20,
+                  columns: number = 0, rows: number = 0,
+                  error: PDF417ErrorCorrectLevel = PDF417ErrorCorrectLevel.Level1): Printer {
+        this.write(0x1D);
+        this.write("(k");
+        this.buffer.writeUInt16LE(code.length + 3);
+        this.write(new Buffer([0x30, 0x50, 0x30]));
+        this.write(code);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 65]));
+        this.write(columns);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 66]));
+        this.write(rows);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 67]));
+        this.write(width);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 68]));
+        this.write(height);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([4, 0, 48, 69, 48]));
+        this.write(error);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 70]));
+        this.write(type);
+
+        this.write(0x1D);
+        this.write("(k");
+        this.write(new Buffer([3, 0, 48, 81, 48]));
+
+        return this;
+    }
+
+    public beep(): Printer {
         this.write(0x1B);
-        if (spacing !== undefined) {
+        this.write("(A");
+        this.write(new Buffer([4, 0, 48, 51, 3, 15]));
+        return this;
+    }
+
+    public setLineSpacing(spacing?: number): Printer {
+        this.write(0x1B);
+        if (spacing) {
             this.write("3");
             this.write(spacing);
         } else {
             this.write("2");
         }
+        return this;
     }
 
     public raster(image: Image, mode: RasterMode): Printer {
@@ -162,7 +261,6 @@ export default class Printer {
         this.buffer.writeUInt16LE(raster.width);
         this.buffer.writeUInt16LE(raster.height);
         this.buffer.write(raster.data);
-
         return this;
     }
 
@@ -193,8 +291,8 @@ export default class Printer {
     private write(value: string | Buffer | number, encoding?: string): Printer {
         if (typeof value === "number") {
             this.buffer.writeUInt8(value);
-        } else if (typeof value === "string" && encoding !== undefined) {
-            this.buffer.write(iconv.encode(value, encoding));
+        } else if (typeof value === "string") {
+            this.buffer.write(iconv.encode(value, encoding || this.encoding));
         } else {
             this.buffer.write(value);
         }

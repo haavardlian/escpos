@@ -9,6 +9,7 @@
         "src/Printer.ts",
         "src/Commands.ts",
         "src/Image.ts",
+        "src/index.ts",
         "src/types.d.ts",
         "src/Test.ts"
     ],
@@ -17,10 +18,9 @@
         "!./node_modules/**/*.ts"
     ],
     "compilerOptions": {
-        "outDir": "js/",
+        "outDir": "dist/",
         "target": "es6",
         "module": "commonjs",
-        "declaration": true,
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,

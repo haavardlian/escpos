@@ -22,10 +22,10 @@ export enum Font {
 }
 
 export enum Barcode {
-    UPCA = 65,
+    UPCA = 0,
     UPCE,
-    JAN13,
-    JAN8,
+    EAN13,
+    EAN8,
     CODE39,
     ITF,
     CODABAR,
@@ -89,4 +89,27 @@ export enum CodeTable {
     Thai16,
     Thai17,
     Thai18
+}
+
+export enum QRErrorCorrecLevel {
+    L = 48,
+    M,
+    Q,
+    H
+}
+
+export enum PDF417ErrorCorrectLevel {
+    Level1 = 48,
+    Level2,
+    Level3,
+    Level4,
+    Level5,
+    Level6,
+    Level7,
+    Level8
+}
+
+export enum PDF417Type {
+    Standard = 0,
+    Truncated
 }
