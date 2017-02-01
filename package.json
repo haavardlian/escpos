@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "get-pixels": "^3.3.0",
-    "iconv-lite": "^0.4.13",
+    "iconv-lite": "^0.4.15",
     "mutable-buffer": "^2.0.3",
     "serialport": "^4.0.3"
   },

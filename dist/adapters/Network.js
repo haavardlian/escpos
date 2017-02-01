@@ -1,24 +1,15 @@
-﻿import Adapter from "../Adapter";
-import { Socket } from "net";
-
-export interface IEndpoint {
-    address: string;
-    port: number;
-}
-
-export default class Network extends Adapter {
-    private retrying: boolean;
-    private options: IEndpoint;
-    private device: Socket;
-    constructor(address: string, port: number = 9100) {
+"use strict";
+const Adapter_1 = require("../Adapter");
+const net_1 = require("net");
+class Network extends Adapter_1.default {
+    constructor(address, port = 9100) {
         super();
-        this.device = new Socket();
+        this.device = new net_1.Socket();
         this.retrying = false;
         this.options = {
             address,
             port,
         };
-
         this.device.on("close", () => {
             if (this.retrying) {
                 setTimeout(() => {
@@ -26,13 +17,11 @@ export default class Network extends Adapter {
                 }, 5000);
             }
         });
-
-        this.device.on("error", (error: any) => {
+        this.device.on("error", (error) => {
             console.error(error.code);
         });
     }
-
-    public open(): Promise<undefined> {
+    open() {
         return new Promise(resolve => {
             this.retrying = true;
             this.device.connect(this.options.port, this.options.address);
@@ -42,15 +31,15 @@ export default class Network extends Adapter {
             });
         });
     }
-
-    public write(data: Buffer): Promise<undefined> {
+    write(data) {
         return new Promise(resolve => {
             this.device.write(data, () => resolve());
         });
     }
-
-    public close(): void {
+    close() {
         this.retrying = false;
         this.device.destroy();
     }
 }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = Network;

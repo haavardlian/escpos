@@ -38,6 +38,3 @@ jspm_packages
 
 # Visual Studio Code
 .vscode/
-
-# compiled typescript
-dist/

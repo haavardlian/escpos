@@ -5,9 +5,9 @@ import Image from "./Image";
 import Printer from "./Printer";
 
 async function test () {
-    let adapter = new Network({address: "10.42.0.94", port: 9100});
+    let adapter = new Network("10.42.0.94", 9100);
     let p = await new Printer(adapter, "CP865").open();
-    let image = await Image.load("./nuxis.png");
+    let image = await Image.load("./sign.png");
     p.init()
      .setJustification(Justification.Center)
      .setFont(Font.A)
