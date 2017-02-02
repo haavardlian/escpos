@@ -4,6 +4,17 @@ import {Barcode, CodeTable, Font, Justification, PDF417ErrorCorrectLevel, PDF417
 import Image from "./Image";
 import Printer from "./Printer";
 
+const values = [
+    {
+        text: "Hello",
+        text2: "World",
+    },
+    {
+        text: "Foo",
+        text2: "Bar",
+    },
+];
+
 async function test () {
     let adapter = new Network("10.42.0.94", 9100);
     let p = await new Printer(adapter, "CP865").open();
@@ -15,6 +26,7 @@ async function test () {
      .setBold(true)
      .setUnderline(Underline.Double)
      .writeLine("Hello world")
+     .writeList(values.map(v => v.text + " " + v.text2))
      .feed()
      .raster(image, RasterMode.Normal)
      .resetToDefault()

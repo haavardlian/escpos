@@ -268,6 +268,13 @@ export default class Printer {
         return this.write(value + "\n", encoding);
     }
 
+    public writeList(values: Array<string>, encoding?: string): Printer {
+        for (const value of values) {
+            this.writeLine(value, encoding);
+        }
+        return this;
+    }
+
     public close(): Promise<undefined> {
         return new Promise(resolve => {
             this.flush().then(() => {

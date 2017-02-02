@@ -213,6 +213,12 @@ class Printer {
     writeLine(value, encoding) {
         return this.write(value + "\n", encoding);
     }
+    writeList(values, encoding) {
+        for (const value of values) {
+            this.writeLine(value, encoding);
+        }
+        return this;
+    }
     close() {
         return new Promise(resolve => {
             this.flush().then(() => {

@@ -11,6 +11,16 @@ const Adapters_1 = require("./Adapters");
 const Commands_1 = require("./Commands");
 const Image_1 = require("./Image");
 const Printer_1 = require("./Printer");
+const values = [
+    {
+        text: "Hello",
+        text2: "World",
+    },
+    {
+        text: "Foo",
+        text2: "Bar",
+    },
+];
 function test() {
     return __awaiter(this, void 0, void 0, function* () {
         let adapter = new Adapters_1.Network("10.42.0.94", 9100);
@@ -23,6 +33,7 @@ function test() {
             .setBold(true)
             .setUnderline(Commands_1.Underline.Double)
             .writeLine("Hello world")
+            .writeList(values.map(v => v.text + " " + v.text2))
             .feed()
             .raster(image, Commands_1.RasterMode.Normal)
             .resetToDefault()

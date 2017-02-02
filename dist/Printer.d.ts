@@ -30,6 +30,7 @@ export default class Printer {
     setLineSpacing(spacing?: number): Printer;
     raster(image: Image, mode: RasterMode): Printer;
     writeLine(value: string, encoding?: string): Printer;
+    writeList(values: Array<string>, encoding?: string): Printer;
     close(): Promise<undefined>;
     open(): Promise<Printer>;
     clearBuffer(): Printer;
