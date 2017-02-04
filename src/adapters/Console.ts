@@ -1,11 +1,6 @@
 ﻿import Adapter from "../Adapter";
 
 export default class Console extends Adapter {
-
-    constructor() {
-        super();
-    }
-
     public open(): Promise<undefined> {
         return new Promise(resolve => {
             resolve();

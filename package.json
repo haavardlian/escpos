@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "name": "escpos",
+  "version": "1.0.2",
+  "name": "escpos-print",
   "bugs": {
     "url": "https://github.com/haavardlian/escpos/issues"
   },
@@ -16,7 +16,7 @@
   "description": "Library for printing to ESC/POS compatible printers",
   "homepage": "https://github.com/haavardlian/escpos",
   "main": "dist/index.js",
-  "typings": "dist/index",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist/"
   ],
@@ -32,10 +32,11 @@
   },
   "contributors": [],
   "devDependencies": {
+    "@types/iconv-lite": "^0.0.1",
     "@types/node": "^6.0.45",
     "@types/serialport": "^4.0.6",
-    "@types/iconv-lite": "^0.0.1",
     "dts-generator": "^2.0.0",
+    "fs-extra": "^2.0.0",
     "tslint": "^4.4.2",
     "typescript": "^2.1.5"
   },

@@ -44,3 +44,6 @@ dist/
 
 # Test image
 sign.png
+
+# Packaged files
+*.tgz
