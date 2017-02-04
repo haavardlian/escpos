@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "1.0.0",
   "name": "escpos",
   "bugs": {
     "url": "https://github.com/haavardlian/escpos/issues"
@@ -16,6 +16,10 @@
   "description": "Library for printing to ESC/POS compatible printers",
   "homepage": "https://github.com/haavardlian/escpos",
   "main": "dist/index.js",
+  "typings": "dist/index",
+  "files": [
+    "dist/"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -30,7 +34,10 @@
   "devDependencies": {
     "@types/node": "^6.0.45",
     "@types/serialport": "^4.0.6",
-    "@types/iconv-lite": "^0.0.1"
+    "@types/iconv-lite": "^0.0.1",
+    "dts-generator": "^2.0.0",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.5"
   },
   "dependencies": {
     "get-pixels": "^3.3.0",
@@ -39,6 +46,7 @@
     "serialport": "^4.0.3"
   },
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "lint": "tslint -c tslint.json -e src/types.d.ts src/**/*.ts"
   }
 }

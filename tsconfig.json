@@ -1,6 +1,6 @@
 {
     "typeRoots": ["node_modules/@types"],
-    "types": ["node", "serialport"],
+    "types": ["node", "serialport", "iconv-lite"],
     "files": [
         "src/Adapter.ts",
         "src/Adapters.ts",
@@ -19,9 +19,9 @@
     ],
     "compilerOptions": {
         "outDir": "dist/",
+        "declaration": true,
         "target": "es6",
         "module": "commonjs",
-        "declaration": true,
         "noImplicitAny": false,
         "removeComments": true,
         "noLib": false,

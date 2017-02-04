@@ -1,7 +1,6 @@
-import {Network} from "./Adapters";
+import {Console} from "./Adapters";
 import {Barcode, CodeTable, Font, Justification, PDF417ErrorCorrectLevel, PDF417Type, Position, QRErrorCorrecLevel,
-    RasterMode, TextMode, Underline} from "./Commands";
-import Image from "./Image";
+    TextMode, Underline} from "./Commands";
 import Printer from "./Printer";
 
 const values = [
@@ -16,9 +15,8 @@ const values = [
 ];
 
 async function test () {
-    let adapter = new Network("10.42.0.94", 9100);
-    let p = await new Printer(adapter, "CP865").open();
-    let image = await Image.load("./sign.png");
+    let consoleAdapter = new Console();
+    let p = await new Printer(consoleAdapter, "CP865").open();
     p.init()
      .setJustification(Justification.Center)
      .setFont(Font.A)
@@ -28,7 +26,6 @@ async function test () {
      .writeLine("Hello world")
      .writeList(values.map(v => v.text + " " + v.text2))
      .feed()
-     .raster(image, RasterMode.Normal)
      .resetToDefault()
      .feed()
      .setCodeTable(CodeTable.PC865)

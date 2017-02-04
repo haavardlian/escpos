@@ -7,7 +7,7 @@ import * as iconv from "iconv-lite";
 import { MutableBuffer } from "mutable-buffer";
 
 export default class Printer {
-    public encoding: string = "ascii";
+    private encoding: string;
     private buffer: MutableBuffer;
     private adapter: Adapter;
 
