@@ -4,6 +4,7 @@
     "files": [
         "src/Adapter.ts",
         "src/Adapters.ts",
+        "src/adapters/Console.ts",
         "src/adapters/Network.ts",
         "src/adapters/Serial.ts",
         "src/Printer.ts",
