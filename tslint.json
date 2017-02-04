@@ -1,10 +1,14 @@
 {
     "extends": "tslint:latest",
     "rules": {
-        "no-constructor-vars": true,
+        "trailing-comma": [
+            false,
+            "always"
+        ],
         "semicolon": [
             true,
             "always"   
-        ]
+        ],
+        "arrow-parens": false
     }
 }

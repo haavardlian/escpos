@@ -40,17 +40,17 @@ export default class Image {
     }
 
     public toRaster(): IRaster {
-        let result = [];
-        let n = Math.ceil(this.width / 8);
+        const result = [];
+        const n = Math.ceil(this.width / 8);
 
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 for (let b = 0; b < 8; b++) {
-                    let i = x * 8 + b;
+                    const i = x * 8 + b;
                     if (result[y * n + x] === undefined) {
                         result[y * n + x] = 0;
                     }
-                    let c = x * 8 + b;
+                    const c = x * 8 + b;
                     if (c < this.width) {
                         if (this.data[y * this.width + i]) {
                             // tslint:disable-next-line no-bitwise

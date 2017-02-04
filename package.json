@@ -47,6 +47,7 @@
   },
   "scripts": {
     "compile": "tsc",
-    "lint": "tslint -c tslint.json -e src/types.d.ts src/**/*.ts"
+    "lint": "tslint -c tslint.json -e src/types.d.ts src/**/*.ts",
+    "pack": "npm run compile && node scripts/createPackageDir.js && npm pack dist"
   }
 }

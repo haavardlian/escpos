@@ -1,5 +1,5 @@
-﻿import Adapter from "../Adapter";
-import { Socket } from "net";
+﻿import { Socket } from "net";
+import Adapter from "../Adapter";
 
 export interface IEndpoint {
     address: string;
@@ -33,7 +33,7 @@ export default class Network extends Adapter {
     }
 
     public open(): Promise<undefined> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.retrying = true;
             this.device.connect(this.options.port, this.options.address);
             this.device.on("connect", () => {
@@ -44,7 +44,7 @@ export default class Network extends Adapter {
     }
 
     public write(data: Buffer): Promise<undefined> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.device.write(data, () => resolve());
         });
     }

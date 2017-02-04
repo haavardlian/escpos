@@ -1,5 +1,5 @@
-﻿import Adapter from "../Adapter";
-import * as SerialPort from "serialport";
+﻿import * as SerialPort from "serialport";
+import Adapter from "../Adapter";
 
 export default class Network extends Adapter {
     private device: SerialPort;
@@ -11,7 +11,7 @@ export default class Network extends Adapter {
     }
 
     public open(): Promise<undefined> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.device.open(() => {
                 resolve();
             });
@@ -19,7 +19,7 @@ export default class Network extends Adapter {
     }
 
     public write(data: Buffer): Promise<undefined> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.device.write(data, () => resolve());
         });
     }

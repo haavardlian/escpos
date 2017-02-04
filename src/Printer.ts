@@ -1,10 +1,10 @@
-﻿import Adapter from "./Adapter";
+﻿import * as iconv from "iconv-lite";
+import { MutableBuffer } from "mutable-buffer";
+import Adapter from "./Adapter";
 import { Barcode, CodeTable, Color, DrawerPin, Font,
     Justification, PDF417ErrorCorrectLevel, PDF417Type,
     Position, QRErrorCorrecLevel, RasterMode, TextMode, Underline } from "./Commands";
 import Image from "./Image";
-import * as iconv from "iconv-lite";
-import { MutableBuffer } from "mutable-buffer";
 
 export default class Printer {
     private encoding: string;
@@ -255,8 +255,8 @@ export default class Printer {
     }
 
     public raster(image: Image, mode: RasterMode): Printer {
-        let header: Buffer = new Buffer([0x1D, 0x76, 0x30, mode]);
-        let raster = image.toRaster();
+        const header: Buffer = new Buffer([0x1D, 0x76, 0x30, mode]);
+        const raster = image.toRaster();
         this.buffer.write(header);
         this.buffer.writeUInt16LE(raster.width);
         this.buffer.writeUInt16LE(raster.height);
@@ -268,7 +268,7 @@ export default class Printer {
         return this.write(value + "\n", encoding);
     }
 
-    public writeList(values: Array<string>, encoding?: string): Printer {
+    public writeList(values: string[], encoding?: string): Printer {
         for (const value of values) {
             this.writeLine(value, encoding);
         }
@@ -276,7 +276,7 @@ export default class Printer {
     }
 
     public close(): Promise<undefined> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.flush().then(() => {
                 this.adapter.close();
                 resolve();
@@ -285,7 +285,7 @@ export default class Printer {
     }
 
     public open(): Promise<Printer> {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.adapter.open().then(() => resolve(this));
         });
     }
