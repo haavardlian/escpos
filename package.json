@@ -50,6 +50,9 @@
   "scripts": {
     "compile": "tsc",
     "lint": "tslint -c tslint.json -e src/types.d.ts src/**/*.ts",
-    "pack": "npm run compile && node scripts/createPackageDir.js && npm pack dist"
+    "pack": "npm run compile && node scripts/createPackageDir.js && npm pack dist",
+    "preversion": "node scripts/isMaster.js && npm run lint",
+    "version": "npm run pack",
+    "postversion": "git push && git push --tags && npm publish dist"
   }
 }
