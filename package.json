@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "name": "escpos-print",
   "bugs": {
     "url": "https://github.com/haavardlian/escpos/issues"
@@ -32,6 +32,7 @@
   },
   "contributors": [],
   "devDependencies": {
+    "@types/fs-extra": "0.0.37",
     "@types/iconv-lite": "^0.0.1",
     "@types/node": "^6.0.45",
     "@types/serialport": "^4.0.6",
@@ -43,7 +44,8 @@
     "get-pixels": "^3.3.0",
     "iconv-lite": "^0.4.15",
     "mutable-buffer": "^2.0.3",
-    "serialport": "^4.0.3"
+    "serialport": "^4.0.3",
+    "moment": "^2.17.1"
   },
   "scripts": {
     "compile": "tsc",

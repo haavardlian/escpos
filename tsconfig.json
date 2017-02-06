@@ -1,12 +1,13 @@
 {
     "typeRoots": ["node_modules/@types"],
-    "types": ["node", "serialport", "iconv-lite"],
+    "types": ["node", "serialport", "iconv-lite", "fs-extra"],
     "files": [
         "src/Adapter.ts",
         "src/Adapters.ts",
         "src/adapters/Console.ts",
         "src/adapters/Network.ts",
         "src/adapters/Serial.ts",
+        "src/adapters/PNG.ts",
         "src/Printer.ts",
         "src/Commands.ts",
         "src/Image.ts",
