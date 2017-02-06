@@ -7,6 +7,7 @@
         "src/adapters/Console.ts",
         "src/adapters/Network.ts",
         "src/adapters/Serial.ts",
+        "src/adapters/PNG.ts",
         "src/Printer.ts",
         "src/Commands.ts",
         "src/Image.ts",
