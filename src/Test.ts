@@ -15,7 +15,7 @@ const values = [
 ];
 
 async function test() {
-    const consoleAdapter = new Console();
+    const consoleAdapter = new Console(32);
     const p = await new Printer(consoleAdapter, "CP865").open();
     p.init()
      .setJustification(Justification.Center)
