@@ -1,4 +1,4 @@
-import {Console} from "./Adapters";
+import {Console, PNG} from "./Adapters";
 import {Barcode, CodeTable, Font, Justification, PDF417ErrorCorrectLevel, PDF417Type, Position, QRErrorCorrecLevel,
     TextMode, Underline} from "./Commands";
 import Printer from "./Printer";
@@ -15,8 +15,10 @@ const values = [
 ];
 
 async function test() {
-    const consoleAdapter = new Console(32);
-    const p = await new Printer(consoleAdapter, "CP865").open();
+    const consoleAdapter = new Console();
+    const pngAdapter = new PNG("./");
+    const p = await new Printer(pngAdapter, "CP865").open();
+
     p.init()
      .setJustification(Justification.Center)
      .setFont(Font.A)

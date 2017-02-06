@@ -45,7 +45,8 @@
     "iconv-lite": "^0.4.15",
     "mutable-buffer": "^2.0.3",
     "serialport": "^4.0.3",
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "jimp": "^0.2.27"
   },
   "scripts": {
     "compile": "tsc",
