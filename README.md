@@ -3,7 +3,7 @@
 ## Feaures:
 - Adapters for Network, Serial, and Console
 - Image printing
-- Barcode printing (Regular, QR, PDF417
+- Barcode printing (Regular, QR, PDF417)
                            
 ## Usage example:
 ```javascript
