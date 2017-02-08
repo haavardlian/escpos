@@ -1,0 +1,8 @@
+build:
+    image: node/node:7.5.0
+    pull: true
+    commands:
+        - npm run lint
+        - npm run pack
+    when:
+        branch: master
