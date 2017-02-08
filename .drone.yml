@@ -1,5 +1,5 @@
 build:
-    image: node/node:7.5.0
+    image: node:7.5.0
     pull: true
     commands:
         - npm install
