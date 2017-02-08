@@ -44,8 +44,7 @@
     "get-pixels": "^3.3.0",
     "iconv-lite": "^0.4.15",
     "mutable-buffer": "^2.0.3",
-    "serialport": "^4.0.3",
-    "moment": "^2.17.1"
+    "serialport": "^4.0.3"
   },
   "scripts": {
     "compile": "tsc",
