@@ -1,9 +1,9 @@
-build:
-    image: node:7.5.0
-    pull: true
-    commands:
-        - npm install
-        - npm run lint
-        - npm run pack
-    when:
-        branch: master
+pipeline:
+    compile:
+        image: node:7.5.0
+        commands:
+            - npm install
+            - npm run lint
+            - npm run pack
+        when:
+            branch: master
