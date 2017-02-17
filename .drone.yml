@@ -2,8 +2,8 @@ pipeline:
     compile:
         image: node:7.5.0
         commands:
-            - npm install
-            - npm run lint
-            - npm run pack
+            - npm install -q
+            - npm run lint -q
+            - npm run pack -q
         when:
             branch: master
