@@ -1,9 +1,17 @@
 pipeline:
-    compile:
+    test:
         image: node:7.5.0
         commands:
             - npm install -q
             - npm run lint -q
-            - npm run pack -q
         when:
             branch: master
+            event: tag
+    publish:
+        image: node:7.5.0
+        commands:
+            - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+            - npm run pack -q
+            - npm publish ./dist
+        when:
+            event: tag
