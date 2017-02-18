@@ -20,3 +20,8 @@ pipeline:
         folder: dist
         when:
             event: tag
+    slack:
+        image: plugins/slack
+        channel: teknisk-dev
+        username: drone
+        event: [push, pull_request, deployment, tag]
