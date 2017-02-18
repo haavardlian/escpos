@@ -9,6 +9,7 @@
             true,
             "always"   
         ],
-        "arrow-parens": false
+        "arrow-parens": false,
+        "eofline": true
     }
 }

@@ -16,7 +16,7 @@
   "description": "Library for printing to ESC/POS compatible printers",
   "homepage": "https://github.com/haavardlian/escpos",
   "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/",
   "files": [
     "dist/"
   ],
@@ -32,18 +32,17 @@
   },
   "contributors": [],
   "devDependencies": {
-    "@types/fs-extra": "0.0.37",
     "@types/iconv-lite": "^0.0.1",
     "@types/node": "^6.0.45",
     "@types/serialport": "^4.0.6",
-    "fs-extra": "^2.0.0",
+    "ts-node": "^2.1.0",
     "tslint": "^4.4.2",
     "typescript": "^2.1.5"
   },
   "dependencies": {
-    "get-pixels": "^3.3.0",
     "iconv-lite": "^0.4.15",
     "mutable-buffer": "^2.0.3",
+    "pngjs": "^3.0.0",
     "serialport": "^4.0.3"
   },
   "scripts": {

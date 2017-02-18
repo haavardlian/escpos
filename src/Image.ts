@@ -1,16 +1,32 @@
-import * as getPixels from "get-pixels";
+import * as fs from "fs";
+import { PNG } from "pngjs";
 
 export default class Image {
 
-    public static load(url: string, type: string = null): Promise<Image> {
+    public static load(path: string): Promise<Image> {
         return new Promise((resolve, reject) => {
-            getPixels(url, type, (err, pixels) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(new Image(pixels));
-                }
-            });
+            const png = new PNG();
+            fs.createReadStream(path)
+                .pipe(png)
+                .on("parsed", () => {
+                    const pixels = new Array<boolean>(png.width * png.height);
+                    for (let y = 0; y < png.height; y++) {
+                        for (let x = 0; x < png.width; x++) {
+                            // Get index 32bpp
+                            const idx = (png.width * y + x) * 4;
+                            let value = false;
+                            // Anything that is white-ish and has alpha > 128 is colored in, rest is blank.
+                            if (png.data[idx] < 0xE6 || png.data[idx + 1] < 0xE6 || png.data[idx + 2] < 0xE6) {
+                                value = true;
+                            }
+                            if (value && png.data[idx + 3] <= 0x80) {
+                                value = false;
+                            }
+                            pixels[png.width * y + x] = value;
+                        }
+                    }
+                    resolve(new Image(pixels, png.width, png.height));
+                });
         });
     }
 
@@ -18,45 +34,22 @@ export default class Image {
     public width: number;
     public height: number;
     private pixels: any;
-    private data: number[];
+    private data: boolean[];
 
-    constructor(pixels: getPixels.IPixels) {
-        this.pixels = pixels;
-        this.data = [];
-        this.width = this.pixels.shape[0];
-        this.height = this.pixels.shape[1];
-        this.colors = this.pixels.shape[2];
-
-        for (let i = 0; i < this.pixels.data.length; i += this.colors) {
-            let value = 0xFF * (this.colors - 1);
-            for (let j = 0; j < this.colors; j++) {
-                value -= this.pixels.data[i + j];
-            }
-            if (this.pixels.data[i + this.colors - 1] === 0) {
-                value = 0;
-            }
-            this.data.push(value);
-        }
+    constructor(pixels: boolean[], width: number, height: number) {
+        this.data = pixels;
+        this.width = width;
+        this.height = height;
     }
 
     public toRaster(): IRaster {
-        const result = [];
         const n = Math.ceil(this.width / 8);
-
+        const result = new Array<number>(this.height * n).fill(0);
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
-                for (let b = 0; b < 8; b++) {
-                    const i = x * 8 + b;
-                    if (result[y * n + x] === undefined) {
-                        result[y * n + x] = 0;
-                    }
-                    const c = x * 8 + b;
-                    if (c < this.width) {
-                        if (this.data[y * this.width + i]) {
-                            // tslint:disable-next-line no-bitwise
-                            result[y * n + x] += (0x80 >> (b & 0x7));
-                        }
-                    }
+                if (this.data[y * this.width + x]) {
+                    // tslint:disable-next-line no-bitwise
+                    result[y * n + (x >> 3)] += (0x80 >> ((x % 8) & 0x7));
                 }
             }
         }

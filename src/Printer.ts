@@ -1,7 +1,7 @@
 ﻿import * as iconv from "iconv-lite";
 import { MutableBuffer } from "mutable-buffer";
 import Adapter from "./Adapter";
-import { Barcode, CodeTable, Color, DrawerPin, Font,
+import { Barcode, CodeTable, Color, Density, DrawerPin, Font,
     Justification, PDF417ErrorCorrectLevel, PDF417Type,
     Position, QRErrorCorrecLevel, RasterMode, TextMode, Underline } from "./Commands";
 import Image from "./Image";
@@ -275,11 +275,11 @@ export default class Printer {
         return this;
     }
 
-    public close(): Promise<undefined> {
+    public close(): Promise<Printer> {
         return new Promise((resolve) => {
             this.flush().then(() => {
                 this.adapter.close();
-                resolve();
+                resolve(this);
             });
         });
     }
@@ -295,7 +295,7 @@ export default class Printer {
         return this;
     }
 
-    private write(value: string | Buffer | number, encoding?: string): Printer {
+    public write(value: string | Buffer | number, encoding?: string): Printer {
         if (typeof value === "number") {
             this.buffer.writeUInt8(value);
         } else if (typeof value === "string") {

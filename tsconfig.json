@@ -1,31 +1,22 @@
 {
-    "typeRoots": ["node_modules/@types"],
-    "types": ["node", "serialport", "iconv-lite", "fs-extra"],
-    "files": [
-        "src/Adapter.ts",
-        "src/Adapters.ts",
-        "src/adapters/Console.ts",
-        "src/adapters/Network.ts",
-        "src/adapters/Serial.ts",
-        "src/Printer.ts",
-        "src/Commands.ts",
-        "src/Image.ts",
-        "src/index.ts",
-        "src/types.d.ts",
-        "src/Test.ts"
+    "include": [
+        "src/**/*.ts"
     ],
-    "filesGlob": [
-        "./**/*.ts",
-        "!./node_modules/**/*.ts"
+    "exclude": [
+        "node_modules"
     ],
     "compilerOptions": {
         "outDir": "dist/",
         "declaration": true,
         "target": "es6",
         "module": "commonjs",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "removeComments": true,
         "noLib": false,
-        "preserveConstEnums": true
+        "preserveConstEnums": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": ["node", "serialport", "iconv-lite"]
     }
 }

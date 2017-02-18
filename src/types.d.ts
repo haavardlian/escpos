@@ -2,8 +2,8 @@ declare module "mutable-buffer" {
     class MutableBuffer {
         constructor(size?: number, blockSize?: number)
         write(data: Buffer | Array<any> | string, encoding?: string): MutableBuffer;
-        writeUInt8(value: number, noAssert?: boolean);
-        writeUInt16LE(value: number, noAssert?: boolean)
+        writeUInt8(value: number, noAssert?: boolean): MutableBuffer;
+        writeUInt16LE(value: number, noAssert?: boolean): MutableBuffer;
         flush(): Buffer;
         capacity(): number;
         clear(): void;
@@ -11,14 +11,46 @@ declare module "mutable-buffer" {
     }
 }
 
-declare module "get-pixels" {
-    namespace getPixels {
-        interface IPixels {
-            data: number[];
-            shape: number[];
-        }
-    }
-    function getPixels(path: string, type: string, callback?: (err: any, pixels: getPixels.IPixels) => void);
+declare module "pngjs" {
+    import Stream = require("stream");
 
-    export = getPixels;
+    export interface Color {
+        red: number;
+        green: number;
+        blue: number;
+    }
+
+    export interface Options {
+        width?: number;
+        height?: number;
+        checkCRC?: boolean;
+        deflateChunkSize?: number;
+        deflateLevel?: number;
+        deflateStrategy?: number;
+        deflateFactory?: Object;
+        filterType?: number;
+        colorType?: number;
+        inputHasAlpha?: boolean;
+        bgColor?: Color;
+    }
+
+    class PNGSync {
+        read(buffer: Buffer, options?: Options): PNG;
+        write(png: PNG): PNG;
+    }
+
+    export class PNG extends Stream {
+        public writable: boolean;
+        public height: number;
+        public width: number;
+        public gamma: number;
+        public data: number[];
+        public inputHasAlpha: boolean;
+        static sync: PNGSync;
+        constructor(options?: Options);
+        write(data: any): boolean;
+        end(data: Buffer, cb?: Function): void;
+        end(): void;
+        end(data: string, cb?: Function): void;
+    }
 }
