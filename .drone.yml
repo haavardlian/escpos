@@ -7,11 +7,15 @@ pipeline:
         when:
             branch: master
             event: [push, pull_request, tag, deployment]
-    publish:
+    test:
         image: node:7.5.0
         commands:
-            - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-            - npm run pack -q
-            - npm publish ./dist
+            - npm install -q
+            - npm run lint -q
+        when:
+            event: tag
+    publish:
+        image: plugins/npm
+        folder: dist
         when:
             event: tag
