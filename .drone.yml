@@ -6,7 +6,7 @@ pipeline:
             - npm run lint -q
         when:
             branch: master
-            event: tag
+            event: [push, pull_request, tag, deployment]
     publish:
         image: node:7.5.0
         commands:
