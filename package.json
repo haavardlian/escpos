@@ -37,7 +37,8 @@
     "@types/serialport": "^4.0.6",
     "ts-node": "^2.1.0",
     "tslint": "^4.4.2",
-    "typescript": "^2.1.5"
+    "typescript": "^2.1.5",
+    "fs-extra": "^2.0.0"
   },
   "dependencies": {
     "iconv-lite": "^0.4.15",
