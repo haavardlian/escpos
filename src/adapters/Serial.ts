@@ -1,7 +1,7 @@
 ﻿import * as SerialPort from "serialport";
 import Adapter from "../Adapter";
 
-export default class Network extends Adapter {
+export default class Serial extends Adapter {
     private device: SerialPort;
 
     constructor(path: string, options: any) {
@@ -11,16 +11,14 @@ export default class Network extends Adapter {
     }
 
     public open(): Promise<undefined> {
-        return new Promise((resolve) => {
-            this.device.open(() => {
-                resolve();
-            });
+        return new Promise(resolve => {
+            this.device.open(resolve);
         });
     }
 
     public write(data: Buffer): Promise<undefined> {
-        return new Promise((resolve) => {
-            this.device.write(data, () => resolve());
+        return new Promise(resolve => {
+            this.device.write(data, resolve);
         });
     }
 

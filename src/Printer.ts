@@ -22,8 +22,9 @@ export default class Printer {
         return this;
     }
 
-    public flush(): Promise<undefined> {
-        return this.adapter.write(this.buffer.flush());
+    public async flush(): Promise<void> {
+        await this.adapter.write(this.buffer.flush());
+        return;
     }
 
     public init(): Printer {
@@ -275,19 +276,15 @@ export default class Printer {
         return this;
     }
 
-    public close(): Promise<Printer> {
-        return new Promise((resolve) => {
-            this.flush().then(() => {
-                this.adapter.close();
-                resolve(this);
-            });
-        });
+    public async close(): Promise<Printer> {
+        await this.flush();
+        this.adapter.close();
+        return this;
     }
 
-    public open(): Promise<Printer> {
-        return new Promise((resolve) => {
-            this.adapter.open().then(() => resolve(this));
-        });
+    public async open(): Promise<Printer> {
+        await this.adapter.open();
+        return this;
     }
 
     public clearBuffer(): Printer {
