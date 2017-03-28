@@ -1,9 +1,10 @@
-# escpos - ESC/POS library written in TypeScript
+# ESC/POS library
 
 ## Feaures:
-- Adapters for Network, Serial, and Console
-- Image printing
-- Barcode printing (Regular, QR, PDF417)
+- Adapters for Network, Serial, and Console (for debugging)
+- Usual text stuff (Bold, Underline, Justification etc.)
+- PNG images
+- Bar code printing (Regular, QR, PDF417)
                            
 ## Usage example:
 ```javascript
