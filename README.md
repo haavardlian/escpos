@@ -1,6 +1,6 @@
 # ESC/POS library
 
-## Feaures:
+## Features:
 - Adapters for Network, Serial, and Console (for debugging)
 - Usual text stuff (Bold, Underline, Justification etc.)
 - PNG images
