@@ -33,7 +33,6 @@ export default class Image {
     public colors: number;
     public width: number;
     public height: number;
-    private pixels: any;
     private data: boolean[];
 
     constructor(pixels: boolean[], width: number, height: number) {
@@ -44,7 +43,8 @@ export default class Image {
 
     public toRaster(): IRaster {
         const n = Math.ceil(this.width / 8);
-        const result = new Array<number>(this.height * n).fill(0);
+        const result = new Uint8Array(this.height * n);
+
         for (let y = 0; y < this.height; y++) {
             for (let x = 0; x < this.width; x++) {
                 if (this.data[y * this.width + x]) {
@@ -63,7 +63,7 @@ export default class Image {
 }
 
 export interface IRaster {
-    data: number[];
+    data: Uint8Array;
     height: number;
     width: number;
 }

@@ -22,10 +22,10 @@ async function test() {
     await printer.init()
     .setCodeTable(CodeTable.PC865)
      .setJustification(Justification.Center)
-     .raster(image, RasterMode.Normal)
+    // .raster(image, RasterMode.Normal)
      .setJustification(Justification.Right)
      .writeLine("Just some text, a newline will be added.")
-     .raster(image, RasterMode.DualWidthAndHeight)
+    // .raster(image, RasterMode.DualWidthAndHeight)
      .barcode("1234567890123", Barcode.EAN13, 50, 2, Font.A, Position.Below)
      .qr("We can put all kinds of cool things in these...", QRErrorCorrecLevel.M, 8)
      .writeList(values.map(v => `${v.text} ... ${v.text2}`)) // Prints one entry per line

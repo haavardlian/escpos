@@ -9,16 +9,12 @@
     "escpos",
     "typescript"
   ],
-  "engines": {
-    "node": ">=6.0.0",
-    "typescript": ">=2.0.0"
-  },
   "description": "Library for printing to ESC/POS compatible printers",
   "homepage": "https://github.com/haavardlian/escpos",
-  "main": "dist/index.js",
-  "typings": "dist/",
+  "main": "src/index.js",
+  "typings": "src/",
   "files": [
-    "dist/"
+    "src/"
   ],
   "license": "MIT",
   "repository": {
@@ -33,16 +29,15 @@
   "contributors": [],
   "devDependencies": {
     "@types/iconv-lite": "^0.0.1",
-    "@types/node": "^6.0.45",
+    "@types/node": "^6.0.85",
     "@types/serialport": "^4.0.6",
-    "ts-node": "^2.1.0",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.5",
-    "fs-extra": "^2.0.0"
+    "ts-node": "^3.2.1",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.2",
+    "fs-extra": "^4.0.0"
   },
   "dependencies": {
     "iconv-lite": "^0.4.15",
-    "mutable-buffer": "^2.0.3",
     "pngjs": "^3.0.0",
     "serialport": "^4.0.3"
   },

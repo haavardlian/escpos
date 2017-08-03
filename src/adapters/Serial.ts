@@ -1,4 +1,4 @@
-﻿import * as SerialPort from "serialport";
+import * as SerialPort from "serialport";
 import Adapter from "../Adapter";
 
 export default class Serial extends Adapter {
@@ -16,9 +16,9 @@ export default class Serial extends Adapter {
         });
     }
 
-    public write(data: Buffer): Promise<undefined> {
+    public write(data: Uint8Array): Promise<undefined> {
         return new Promise(resolve => {
-            this.device.write(data, resolve);
+            this.device.write(new Buffer(data), resolve);
         });
     }
 

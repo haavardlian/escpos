@@ -1,4 +1,4 @@
-﻿import { Socket } from "net";
+import { Socket } from "net";
 import Adapter from "../Adapter";
 
 export interface IEndpoint {
@@ -43,9 +43,9 @@ export default class Network extends Adapter {
         });
     }
 
-    public write(data: Buffer): Promise<undefined> {
+    public write(data: Uint8Array): Promise<undefined> {
         return new Promise(resolve => {
-            this.device.write(data, resolve);
+            this.device.write(new Buffer(data), resolve);
         });
     }
 

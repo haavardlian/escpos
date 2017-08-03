@@ -10,6 +10,8 @@
             "always"   
         ],
         "arrow-parens": false,
-        "eofline": true
+        "eofline": true,
+        "no-console": [false],
+        "whitespace": false
     }
 }
