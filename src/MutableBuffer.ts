@@ -21,16 +21,17 @@ export default class MutableBuffer {
         this.resizeIfNeeded(data.length);
         this.buffer.set(data, this.size);
         this.size += data.length;
+
         return this;
     }
 
     public writeUInt32LE(value: number, noAssert?: boolean): MutableBuffer {
         this.resizeIfNeeded(4);
         // tslint:disable no-bitwise
-        this.buffer[this.size++] = (value >> 24) & 0xFF;
-        this.buffer[this.size++] = (value >> 16) & 0xFF;
-        this.buffer[this.size++] = (value >> 8) & 0xFF;
         this.buffer[this.size++] = (value) & 0xFF;
+        this.buffer[this.size++] = (value >> 8) & 0xFF;
+        this.buffer[this.size++] = (value >> 16) & 0xFF;
+        this.buffer[this.size++] = (value >> 24) & 0xFF;
         // tslint:enable no-bitwise
         return this;
     }
@@ -38,8 +39,8 @@ export default class MutableBuffer {
     public writeUInt16LE(value: number, noAssert?: boolean): MutableBuffer {
         this.resizeIfNeeded(2);
         // tslint:disable no-bitwise
-        this.buffer[this.size++] = (value >> 8) & 0xFF;
         this.buffer[this.size++] = (value) & 0xFF;
+        this.buffer[this.size++] = (value >> 8) & 0xFF;
         // tslint:enable no-bitwise
         return this;
     }

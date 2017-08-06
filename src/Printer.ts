@@ -258,7 +258,7 @@ export default class Printer {
         return this;
     }
 
-    public raster(image: Image, mode: RasterMode): Printer {
+    public raster(image: Image, mode: RasterMode = RasterMode.Normal): Printer {
         const header = new Uint8Array([GS, 0x76, 0x30, mode]);
         const raster = image.toRaster();
         this.buffer.write(header);
