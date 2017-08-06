@@ -1,36 +1,48 @@
 import * as fs from "fs";
+import fetch from "node-fetch";
 import { PNG } from "pngjs";
 
 export default class Image {
+    public static async load(path: string): Promise<Image> {
+        const stream = await Image.createStream(path);
 
-    public static load(path: string): Promise<Image> {
-        return new Promise((resolve, reject) => {
-            const png = new PNG();
-            fs.createReadStream(path)
-                .pipe(png)
-                .on("parsed", () => {
-                    const pixels = new Array<boolean>(png.width * png.height);
-                    for (let y = 0; y < png.height; y++) {
-                        for (let x = 0; x < png.width; x++) {
-                            // Get index 32bpp
-                            const idx = (png.width * y + x) * 4;
-                            let value = false;
-                            // Anything that is white-ish and has alpha > 128 is colored in, rest is blank.
-                            if (png.data[idx] < 0xE6 || png.data[idx + 1] < 0xE6 || png.data[idx + 2] < 0xE6) {
-                                value = true;
-                            }
-                            if (value && png.data[idx + 3] <= 0x80) {
-                                value = false;
-                            }
-                            pixels[png.width * y + x] = value;
+        return new Promise<Image>(resolve => {
+            stream.pipe(new PNG()).on("parsed", function(this: PNG) {
+                const pixels = new Array<boolean>(this.width * this.height);
+                for (let y = 0; y < this.height; y++) {
+                    for (let x = 0; x < this.width; x++) {
+                        // Get index 32bpp
+                        const idx = (this.width * y + x) * 4;
+                        let value = false;
+                        // Anything that is white-ish and has alpha > 128 is colored in, rest is blank.
+                        if (this.data[idx] < 0xE6 || this.data[idx + 1] < 0xE6 || this.data[idx + 2] < 0xE6) {
+                            value = true;
                         }
+                        if (value && this.data[idx + 3] <= 0x80) {
+                            value = false;
+                        }
+                        pixels[this.width * y + x] = value;
                     }
-                    resolve(new Image(pixels, png.width, png.height));
-                });
+                }
+                resolve(new Image(pixels, this.width, this.height));
+            });
         });
     }
 
-    public colors: number;
+    private static async createStream(path: string): Promise<NodeJS.ReadableStream> {
+        if (path.match("^https?:\/\/.*$") !== null) {
+            return fetch(path).then(response => {
+                if (response.ok) {
+                    return response.body;
+                } else {
+                    throw new Error("Cannot load image: " + path);
+                }
+            });
+        } else {
+            return fs.createReadStream(path);
+        }
+    }
+
     public width: number;
     public height: number;
     private data: boolean[];

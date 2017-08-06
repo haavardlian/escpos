@@ -4,21 +4,28 @@ import Adapter from "../Adapter";
 export default class Serial extends Adapter {
     private device: SerialPort;
 
-    constructor(path: string, options: any) {
+    constructor(path: string, options: SerialPort.options) {
         super();
         options.autoOpen = false;
         this.device = new SerialPort(path, options);
     }
 
-    public open(): Promise<undefined> {
-        return new Promise(resolve => {
-            this.device.open(resolve);
+    public open(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.device.open(err => {
+                err ? reject(err) : resolve();
+            });
         });
     }
 
-    public write(data: Uint8Array): Promise<undefined> {
-        return new Promise(resolve => {
-            this.device.write(new Buffer(data), resolve);
+    public write(data: Uint8Array): Promise<void> {
+        return new Promise((resolve, reject) => {
+            this.device.write(new Buffer(data), (err, written) => {
+                if (err) {
+                    reject(err);
+                }
+                resolve();
+            });
         });
     }
 
