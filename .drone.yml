@@ -4,14 +4,9 @@ pipeline:
         commands:
             - npm install -q
             - npm run lint -q
-        when:
-            branch: master
-            event: [push, pull_request, deployment]
     package:
         image: node:7.5.0
         commands:
-            - npm install -q
-            - npm run lint -q
             - npm run pack -q
         when:
             event: tag
@@ -24,4 +19,4 @@ pipeline:
         image: plugins/slack
         channel: teknisk-dev
         username: drone
-        event: [push, pull_request, deployment, tag]
+        event: [push, tag]
