@@ -281,7 +281,7 @@ export default class Printer {
 
     public async close(): Promise<Printer> {
         await this.flush();
-        this.adapter.close();
+        await this.adapter.close();
         return this;
     }
 

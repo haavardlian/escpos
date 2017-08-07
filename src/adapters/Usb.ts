@@ -3,39 +3,44 @@ import Adapter from "../Adapter";
 
 const PRINTER_CLASS = 0x07;
 
-export interface IUsbOptions {
-    vid: number;
-    pid: number;
-}
-
 export default class Usb extends Adapter {
-    private static getPrinterDevices(): Device[] {
-        return getDeviceList().filter(device => {
-            try {
-                device.open();
-                return device.interfaces.some(iface => iface.descriptor.bInterfaceClass === PRINTER_CLASS);
-            } catch (err) {
-                return false;
-            } finally {
-                device.close();
+    private static findDeviceOrThrow(vid: number, pid: number): Device {
+        if (vid && pid) {
+                return findByIds(vid, pid);
+        } else {
+            const devices = Usb.getPrinterDevices(vid);
+            if (devices.length > 0) {
+                return devices[0];
             }
-        });
+        }
+        throw new Error("No printer found");
+    }
+
+    private static getPrinterDevices(vid?: number): Device[] {
+        return getDeviceList()
+            .filter(device => !vid || device.deviceDescriptor.idVendor === vid)
+            .filter(device => {
+                try {
+                    device.open();
+                    return device.interfaces.some(iface => iface.descriptor.bInterfaceClass === PRINTER_CLASS);
+                } catch (err) {
+                    return false;
+                } finally {
+                    device.close();
+                }
+            });
     }
 
     private device: Device;
     private endpoint: OutEndpoint;
+    private vid: number;
+    private pid: number;
 
-    constructor(options?: IUsbOptions) {
+    constructor(vid?: number, pid?: number) {
         super();
 
-        if (options) {
-            this.device = findByIds(options.vid, options.pid);
-        } else {
-            const devices = Usb.getPrinterDevices();
-            if (devices.length > 0) {
-                this.device = devices[0];
-            }
-        }
+        this.vid = vid;
+        this.pid = pid;
 
         addEventListener("detatch", device => {
             if (device === this.device) {
@@ -45,11 +50,8 @@ export default class Usb extends Adapter {
     }
 
     public async open(): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            if (this.device === undefined) {
-                reject("No printer found");
-            }
-
+        return new Promise<void>(resolve => {
+            this.device = Usb.findDeviceOrThrow(this.vid, this.pid);
             this.device.open();
             this.device.interfaces.forEach(iface => {
                 iface.claim();
@@ -60,28 +62,32 @@ export default class Usb extends Adapter {
                     }
                 });
             });
-            this.rejectIfNeeded(reject, "Cannot open printer");
+            this.throwIfNeeded("Cannot open printer");
         });
     }
 
     public async write(data: Uint8Array): Promise<void> {
-        return new Promise<void>((resolve, reject) => {
-            this.rejectIfNeeded(reject);
+        return new Promise<void>(resolve => {
+            this.throwIfNeeded();
             this.endpoint.transfer(new Buffer(data), err => {
-                err ? reject(err) : resolve();
+                if (err) {
+                    throw new Error("Failed to write to USB device");
+                }
+                resolve();
             });
         });
     }
 
-    public close(): void {
+    public async close(): Promise<void> {
+        this.throwIfNeeded();
         this.device.close();
         this.device = null;
         this.endpoint = null;
     }
 
-    private rejectIfNeeded(reject: (reason?: any) => void, reason?: string) {
+    private throwIfNeeded(reason?: string) {
         if (!this.device || !this.endpoint) {
-            reject(reason || "No USB device is open");
+            throw new Error(reason || "The USB device is not open");
         }
     }
 }

@@ -23,7 +23,7 @@ export default class Console extends Adapter {
         return;
     }
 
-    public close(): void {
+    public async close(): Promise<void> {
         return;
     }
 

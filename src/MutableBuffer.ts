@@ -21,7 +21,6 @@ export default class MutableBuffer {
         this.resizeIfNeeded(data.length);
         this.buffer.set(data, this.size);
         this.size += data.length;
-
         return this;
     }
 
@@ -53,7 +52,7 @@ export default class MutableBuffer {
     }
 
     private resizeIfNeeded(need: number): void {
-        const remaining  = this.buffer.length - this.size;
+        const remaining = this.buffer.length - this.size;
         if (remaining < need) {
             const oldBuffer = this.buffer;
             const factor = Math.ceil((need - remaining) / oldBuffer.length) + 1;
