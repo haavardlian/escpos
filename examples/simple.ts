@@ -21,7 +21,7 @@ async function test() {
     const usbAdapter = new Usb({vid: 0x0525, pid: 0xA700});
 
     const printer = await new Printer(usbAdapter, "CP865").open();
-    const image = await Image.load("http://static.64bit.no/receipt_t.png");
+    const image = await Image.load("C:/temp/receipt_t.png");
 
     await printer.init()
                  .setCodeTable(CodeTable.PC865)

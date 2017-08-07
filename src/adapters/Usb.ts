@@ -44,8 +44,8 @@ export default class Usb extends Adapter {
         });
     }
 
-    public open(): Promise<void> {
-        return new Promise((resolve, reject) => {
+    public async open(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             if (this.device === undefined) {
                 reject("No printer found");
             }
@@ -64,8 +64,8 @@ export default class Usb extends Adapter {
         });
     }
 
-    public write(data: Uint8Array): Promise<void> {
-        return new Promise((resolve, reject) => {
+    public async write(data: Uint8Array): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.rejectIfNeeded(reject);
             this.endpoint.transfer(new Buffer(data), err => {
                 err ? reject(err) : resolve();

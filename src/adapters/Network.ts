@@ -38,8 +38,8 @@ export default class Network extends Adapter {
         this.device.on("error", Function.prototype);
     }
 
-    public open(): Promise<undefined> {
-        return new Promise((resolve, reject) => {
+    public async open(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.retrying = true;
             this.reject = reject;
             this.device.connect(this.options.port, this.options.address);
@@ -50,8 +50,8 @@ export default class Network extends Adapter {
         });
     }
 
-    public write(data: Uint8Array): Promise<undefined> {
-        return new Promise(resolve => {
+    public async write(data: Uint8Array): Promise<void> {
+        return new Promise<void>(resolve => {
             this.device.write(new Buffer(data), resolve);
         });
     }

@@ -10,16 +10,16 @@ export default class Serial extends Adapter {
         this.device = new SerialPort(path, options);
     }
 
-    public open(): Promise<void> {
-        return new Promise((resolve, reject) => {
+    public async open(): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.device.open(err => {
                 err ? reject(err) : resolve();
             });
         });
     }
 
-    public write(data: Uint8Array): Promise<void> {
-        return new Promise((resolve, reject) => {
+    public async write(data: Uint8Array): Promise<void> {
+        return new Promise<void>((resolve, reject) => {
             this.device.write(new Buffer(data), (err, written) => {
                 if (err) {
                     reject(err);
