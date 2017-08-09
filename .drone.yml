@@ -19,4 +19,6 @@ pipeline:
         image: plugins/slack
         channel: teknisk-dev
         username: drone
-        event: [push, tag]
+        when:
+            event: [push, tag]
+            status:  [ failure, success ]
