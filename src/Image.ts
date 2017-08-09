@@ -1,10 +1,9 @@
-import * as fs from "fs";
-import fetch from "node-fetch";
 import { PNG } from "pngjs";
+import { createStreamFromPath } from "./Utils";
 
 export default class Image {
     public static async load(path: string): Promise<Image> {
-        const stream = await Image.createStream(path);
+        const stream = await createStreamFromPath(path);
 
         return new Promise<Image>(resolve => {
             stream.pipe(new PNG()).on("parsed", function(this: PNG) {
@@ -27,20 +26,6 @@ export default class Image {
                 resolve(new Image(pixels, this.width, this.height));
             });
         });
-    }
-
-    private static async createStream(path: string): Promise<NodeJS.ReadableStream> {
-        if (path.match("^https?:\/\/.*$") !== null) {
-            return fetch(path).then(response => {
-                if (response.ok) {
-                    return response.body;
-                } else {
-                    throw new Error("Cannot load image: " + path);
-                }
-            });
-        } else {
-            return fs.createReadStream(path);
-        }
     }
 
     public width: number;

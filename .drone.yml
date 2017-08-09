@@ -1,11 +1,11 @@
 pipeline:
     test:
-        image: node:7.5.0
+        image: node:8.2.0
         commands:
             - npm install -q
             - npm run lint -q
     package:
-        image: node:7.5.0
+        image: node:8.2.0
         commands:
             - npm run pack -q
         when:

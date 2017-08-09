@@ -61,12 +61,13 @@ export default class Network extends Adapter {
     public async close(): Promise<void> {
         this.throwIfNeeded();
         this.retrying = false;
+        this.connected = false;
         this.device.destroy();
     }
 
     private throwIfNeeded(reason?: string) {
         if (!this.device || !this.connected) {
-            throw new Error(reason || "The serial device is not open");
+            throw new Error(reason || "The network socket is not open");
         }
     }
 }

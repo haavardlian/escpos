@@ -17,6 +17,6 @@
         "typeRoots": [
             "node_modules/@types"
         ],
-        "types": ["node", "serialport", "iconv-lite", "node-fetch", "usb"]
+        "types": ["node", "serialport", "iconv-lite", "ws", "usb"]
     }
 }
