@@ -91,12 +91,13 @@ export enum CodeTable {
     Thai18
 }
 
-export enum QRErrorCorrecLevel {
+export enum QRErrorCorrectLevel {
     L = 48,
     M,
     Q,
     H
 }
+type QRErrorCorrecLevel = QRErrorCorrectLevel; // @deprecated Remove in 2.0.0
 
 export enum PDF417ErrorCorrectLevel {
     Level1 = 48,
