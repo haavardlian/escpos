@@ -3,7 +3,7 @@ import { MutableBuffer } from "mutable-buffer";
 import Adapter from "./Adapter";
 import { Barcode, CodeTable, Color, Density, DrawerPin, Font,
     Justification, PDF417ErrorCorrectLevel, PDF417Type,
-    Position, QRErrorCorrecLevel, RasterMode, TextMode, Underline } from "./Commands";
+    Position, QRErrorCorrectLevel, RasterMode, TextMode, Underline } from "./Commands";
 import Image from "./Image";
 
 export default class Printer {
@@ -168,7 +168,7 @@ export default class Printer {
         return this;
     }
 
-    public qr(code: string, errorCorrect: QRErrorCorrecLevel, size: 1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16): Printer {
+    public qr(code: string, errorCorrect: QRErrorCorrectLevel, size: 1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16): Printer {
         this.write(0x1D);
         this.write("(k");
         this.buffer.writeUInt16LE(code.length + 3);
