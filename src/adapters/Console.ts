@@ -8,6 +8,7 @@ export default class Console extends Adapter {
 
     constructor(logger: Logger = console.log, numbersPerLine: number = 16) {
         super();
+
         this.logger = logger;
         this.numbersPerLine = numbersPerLine;
     }
@@ -28,9 +29,6 @@ export default class Console extends Adapter {
     }
 
     private toHexString(byteArray: Uint8Array) {
-        return Array.from(byteArray, (byte) => {
-            // tslint:disable-next-line no-bitwise
-            return ("0" + (byte & 0xFF).toString(16)).slice(-2);
-        }).join("");
+        return Array.from(byteArray, (byte) => ("0" + byte.toString(16)).slice(-2)).join("");
     }
 }
