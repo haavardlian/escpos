@@ -4,7 +4,7 @@ import Adapter from "../Adapter";
 export default class Serial extends Adapter {
     private device: SerialPort;
 
-    constructor(path: string, options: SerialPort.options) {
+    constructor(path: string, options: SerialPort.OpenOptions) {
         super();
         options.autoOpen = false;
         this.device = new SerialPort(path, options);
@@ -44,7 +44,7 @@ export default class Serial extends Adapter {
     }
 
     private throwIfNeeded(reason?: string) {
-        if (!this.device || !this.device.isOpen()) {
+        if (!this.device) {
             throw new Error(reason || "The serial device is not open");
         }
     }
