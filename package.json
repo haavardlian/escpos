@@ -9,16 +9,12 @@
     "escpos",
     "typescript"
   ],
-  "engines": {
-    "node": ">=6.0.0",
-    "typescript": ">=2.0.0"
-  },
   "description": "Library for printing to ESC/POS compatible printers",
   "homepage": "https://github.com/haavardlian/escpos",
-  "main": "dist/index.js",
-  "typings": "dist/",
+  "main": "src/index.js",
+  "typings": "src/",
   "files": [
-    "dist/"
+    "src/"
   ],
   "license": "MIT",
   "repository": {
@@ -33,22 +29,27 @@
   "contributors": [],
   "devDependencies": {
     "@types/iconv-lite": "^0.0.1",
-    "@types/node": "^6.0.45",
-    "@types/serialport": "^4.0.6",
-    "ts-node": "^2.1.0",
-    "tslint": "^4.4.2",
-    "typescript": "^2.1.5",
-    "fs-extra": "^2.0.0"
+    "@types/node": "^8.5.5",
+    "@types/serialport": "^6.0.0",
+    "@types/usb": "^1.1.4",
+    "@types/ws": "^3.2.1",
+    "fs-extra": "^5.0.0",
+    "ts-node": "^4.1.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
   },
   "dependencies": {
-    "iconv-lite": "^0.4.15",
-    "mutable-buffer": "^2.0.3",
-    "pngjs": "^3.0.0",
-    "serialport": "^4.0.3"
+    "iconv-lite": "^0.4.19",
+    "pngjs": "~3.3.1"
+  },
+  "optionalDependencies": {
+    "serialport": "^6.0.4",
+    "usb": "^1.4.0",
+    "ws": "^3.3.3"
   },
   "scripts": {
     "compile": "tsc",
-    "lint": "tslint -c tslint.json -e src/types.d.ts src/**/*.ts",
+    "lint": "tslint -c tslint.json -p tsconfig.json -e src/types.d.ts src/**/*.ts",
     "pack": "npm run compile && node scripts/createPackageDir.js",
     "preversion": "node scripts/isMaster.js && npm run lint",
     "version": "npm run pack",

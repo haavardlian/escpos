@@ -1,5 +1,5 @@
 {
-    "extends": "tslint:latest",
+    "extends": "tslint:recommended",
     "rules": {
         "trailing-comma": [
             false,
@@ -10,6 +10,8 @@
             "always"   
         ],
         "arrow-parens": false,
-        "eofline": true
+        "eofline": true,
+        "no-console": [false],
+        "whitespace": false
     }
 }
