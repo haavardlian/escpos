@@ -8,6 +8,12 @@ export default class Serial extends Adapter {
         super();
         options.autoOpen = false;
         this.device = new SerialPort(path, options);
+
+        this.device.on('data', data => {
+            if (this.onDataReceived) {
+                this.onDataReceived(data);
+            }
+        })
     }
 
     public async open(): Promise<void> {
