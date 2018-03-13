@@ -12,7 +12,8 @@ export default class Network extends Adapter {
     private device: Socket;
     private retries: number;
     private connected: boolean;
-
+    private forceClose: boolean;
+    
     constructor(address: string, port: number = 9100, retries: number = 0) {
         super();
         this.device = new Socket();
