@@ -1,5 +1,13 @@
 # ESC/POS library
 
+this project is based on this project https://github.com/haavardlian/escpos.
+
+and was modified to suit specific needs, where applicable use the original project.
+
+## Additional Features from base code:
+- Read back from printer
+- Fixed issue where closing on network printer would throw exception.
+
 ## Features:
 - Adapters for Network, Serial, and Console (for debugging)
 - Usual text stuff (Bold, Underline, Justification etc.)

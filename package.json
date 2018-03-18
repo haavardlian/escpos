@@ -1,12 +1,13 @@
 {
-  "version": "2.0.0",
-  "name": "escpos-print",
+  "version": "2.0.1",
+  "name": "escpos-print-extended",
   "bugs": {
     "url": "https://github.com/haavardlian/escpos/issues"
   },
   "keywords": [
     "esc/pos",
     "escpos",
+    "escpos-extended",
     "typescript"
   ],
   "description": "Library for printing to ESC/POS compatible printers",
@@ -43,7 +44,7 @@
     "pngjs": "~3.3.1"
   },
   "optionalDependencies": {
-    "serialport": "^6.0.4",
+    "serialport": "^6.1.1",
     "usb": "^1.4.0",
     "ws": "^3.3.3"
   },

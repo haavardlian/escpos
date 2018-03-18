@@ -12,19 +12,29 @@ export default class Network extends Adapter {
     private device: Socket;
     private retries: number;
     private connected: boolean;
-
+    private forceClose: boolean;
     constructor(address: string, port: number = 9100, retries: number = 0) {
         super();
         this.device = new Socket();
         this.retrying = false;
+        this.forceClose = false;
         this.retries = 0;
         this.options = {
             address,
             port,
         };
 
+        this.device.on('data', data => {
+            if (this.onDataReceived) {
+                this.onDataReceived(data);
+            }
+        })
+
         this.device.on("close", () => {
             this.connected = false;
+            if (this.forceClose) {
+                return
+            }
             if (this.retrying && (retries === 0 || this.retries < retries)) {
                 this.retries++;
                 setTimeout(() => {
@@ -42,6 +52,7 @@ export default class Network extends Adapter {
     public async open(): Promise<void> {
         return new Promise<void>(resolve => {
             this.retrying = true;
+            this.forceClose = false;
             this.device.connect(this.options.port, this.options.address);
             this.device.on("connect", () => {
                 this.retrying = false;
@@ -62,6 +73,7 @@ export default class Network extends Adapter {
         this.throwIfNeeded();
         this.retrying = false;
         this.connected = false;
+        this.forceClose = true;
         this.device.destroy();
     }
 

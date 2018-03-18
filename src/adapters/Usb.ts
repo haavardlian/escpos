@@ -6,7 +6,7 @@ const PRINTER_CLASS = 0x07;
 export default class Usb extends Adapter {
     private static findDeviceOrThrow(vid: number, pid: number): Device {
         if (vid && pid) {
-                return findByIds(vid, pid);
+            return findByIds(vid, pid);
         } else {
             const devices = Usb.getPrinterDevices(vid);
             if (devices.length > 0) {

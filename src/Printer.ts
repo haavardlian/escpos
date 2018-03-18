@@ -1,8 +1,10 @@
 import * as iconv from "iconv-lite";
 import Adapter from "./Adapter";
-import { Barcode, CodeTable, Color, Density, DrawerPin, Font,
+import {
+    Barcode, CodeTable, Color, Density, DrawerPin, Font,
     Justification, PDF417ErrorCorrectLevel, PDF417Type,
-    Position, QRErrorCorrectLevel, RasterMode, TextMode, Underline } from "./Commands";
+    Position, QRErrorCorrectLevel, RasterMode, TextMode, Underline
+} from "./Commands";
 import Image from "./Image";
 import MutableBuffer from "./MutableBuffer";
 
@@ -140,7 +142,7 @@ export default class Printer {
     }
 
     public barcode(code: string, type: Barcode, height: number,
-                   width: 2|3|4|5|6, font: Font, pos: Position): Printer {
+        width: 2 | 3 | 4 | 5 | 6, font: Font, pos: Position): Printer {
         // Set the position of barcode text
         this.write(GS);
         this.write("H");
@@ -171,7 +173,7 @@ export default class Printer {
         return this;
     }
 
-    public qr(code: string, errorCorrect: QRErrorCorrectLevel, size: 1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16): Printer {
+    public qr(code: string, errorCorrect: QRErrorCorrectLevel, size: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16): Printer {
         this.write(GS);
         this.write("(k");
         this.buffer.writeUInt16LE(code.length + 3);
@@ -195,8 +197,8 @@ export default class Printer {
     }
 
     public pdf417(code: string, type: PDF417Type = PDF417Type.Standard, height: number = 1,
-                  width: number = 20, columns: number = 0, rows: number = 0,
-                  error: PDF417ErrorCorrectLevel = PDF417ErrorCorrectLevel.Level1): Printer {
+        width: number = 20, columns: number = 0, rows: number = 0,
+        error: PDF417ErrorCorrectLevel = PDF417ErrorCorrectLevel.Level1): Printer {
         this.write(GS);
         this.write("(k");
         this.buffer.writeUInt16LE(code.length + 3);
@@ -304,5 +306,9 @@ export default class Printer {
             this.buffer.write(value);
         }
         return this;
+    }
+
+    public read(onData: (data: any) => void) {
+        this.adapter.onDataReceived = onData;
     }
 }
