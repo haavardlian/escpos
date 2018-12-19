@@ -1,13 +1,13 @@
 pipeline:
     test:
-        image: node:8.2.0
+        image: node:10.14.2
         commands:
-            - npm install -q
-            - npm run lint -q
+            - yarn install
+            - yarn run lint
     package:
-        image: node:8.2.0
+        image: node:10.14.2
         commands:
-            - npm run pack -q
+            - yarn run pack
         when:
             event: tag
     publish:
