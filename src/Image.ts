@@ -54,7 +54,7 @@ export default class Image {
         return {
             data: result,
             height: this.height,
-            width: n,
+            width: n
         };
     }
 }

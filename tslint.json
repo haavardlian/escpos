@@ -1,14 +1,18 @@
 {
     "extends": "tslint:recommended",
     "rules": {
-        "trailing-comma": [
-            false,
-            "always"
-        ],
-        "semicolon": [
-            true,
-            "always"   
-        ],
+        "trailing-comma": {
+            "options": {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        },
+        "semicolon": {
+            "options": "always"
+        },
+        "indent": {
+            "options": "spaces"
+        },
         "arrow-parens": false,
         "eofline": true,
         "no-console": [false],

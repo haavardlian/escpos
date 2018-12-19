@@ -7,12 +7,12 @@ import Printer from "../src/Printer";
 const values = [
     {
         text: "Hello",
-        text2: "World",
+        text2: "World"
     },
     {
         text: "Foo",
-        text2: "Bar",
-    },
+        text2: "Bar"
+    }
 ];
 
 async function test() {

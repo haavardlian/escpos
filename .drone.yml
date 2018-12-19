@@ -15,10 +15,3 @@ pipeline:
         folder: dist
         when:
             event: tag
-    slack:
-        image: plugins/slack
-        channel: teknisk-dev
-        username: drone
-        when:
-            event: [push, tag]
-            status:  [ failure, success ]

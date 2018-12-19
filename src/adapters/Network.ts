@@ -20,7 +20,7 @@ export default class Network extends Adapter {
         this.retries = 0;
         this.options = {
             address,
-            port,
+            port
         };
 
         this.device.on("close", () => {

@@ -97,7 +97,6 @@ export enum QRErrorCorrectLevel {
     Q,
     H
 }
-type QRErrorCorrecLevel = QRErrorCorrectLevel; // @deprecated Remove in 2.0.0
 
 export enum PDF417ErrorCorrectLevel {
     Level1 = 48,

@@ -1,6 +1,6 @@
 import * as iconv from "iconv-lite";
 import Adapter from "./Adapter";
-import { Barcode, CodeTable, Color, Density, DrawerPin, Font,
+import { Barcode, CodeTable, Color, DrawerPin, Font,
     Justification, PDF417ErrorCorrectLevel, PDF417Type,
     Position, QRErrorCorrectLevel, RasterMode, TextMode, Underline } from "./Commands";
 import Image from "./Image";
@@ -269,7 +269,7 @@ export default class Printer {
     }
 
     public writeLine(value: string, encoding?: string): Printer {
-        return this.write(value + "\n", encoding);
+        return this.write(`${value}\n`, encoding);
     }
 
     public writeList(values: string[], encoding?: string): Printer {
