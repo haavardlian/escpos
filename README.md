@@ -8,12 +8,12 @@
                            
 ## Usage example:
 ```javascript
-import Printer from 'escpos-print/Printer'
-import { Font, Justification, TextMode } from 'escpos-print/Commands'
-import { Network } from 'escpos-print/Adapters'
+import Printer from 'escpos-print/Printer';
+import { Font, Justification, TextMode } from 'escpos-print/Commands';
+import { Network } from 'escpos-print/Adapters';
 
-const adapter = new Network("192.168.0.102", 9100)
-const printer = await new Printer(adapter).open()
+const adapter = new Network("192.168.0.102", 9100);
+const printer = await new Printer(adapter).open();
                            
 printer.setFont(Font.A)
        .setJustification(Justification.Center)
@@ -24,5 +24,5 @@ printer.setFont(Font.A)
        .writeLine("Some normal text")
        .feed(4)
        .close()
-       .then(() => console.log("Done printing..."))
+       .then(() => console.log("Done printing..."));
 ```
