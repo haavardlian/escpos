@@ -45,7 +45,7 @@
   "optionalDependencies": {
     "serialport": "7.1.0",
     "usb": "1.5.0",
-    "ws": "6.1.2"
+    "ws": "7.4.6"
   },
   "scripts": {
     "compile": "tsc",
